@@ -1,0 +1,4 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {parseApplication} from '../lib/validation.ts';
+const input=()=>({name:'架空の利用者',email:'demo@example.com',company:'試験用組織',product:'soap',purpose:'demo',deployment:'undecided',teamSize:'undecided',notes:'架空の相談',consent:true,requestId:'11111111-1111-4111-8111-111111111111'});
+test('申込の必須項目と同意を検証し、未知の製品や不正メールを保存しない',()=>{assert.equal(parseApplication(input()).product,'soap');for(const change of [{consent:false},{email:'invalid'},{product:'unknown'},{name:''},{notes:'a'.repeat(1201)},{requestId:'invalid'}])assert.throws(()=>parseApplication({...input(),...change}));});
+test('余分な権限フィールドを受け取らず、本人IDや状態はサーバーで決定する',()=>{const result=parseApplication({...input(),userId:'someone-else',status:'approved'});assert.equal(result.userId,undefined);assert.equal(result.status,undefined);});

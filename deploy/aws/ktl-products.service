@@ -1,0 +1,19 @@
+[Unit]
+Description=KTL Products and trial applications
+After=network.target
+
+[Service]
+User=ktl-products
+Group=ktl-products
+WorkingDirectory=/opt/ktl-products
+Environment=NODE_ENV=production
+EnvironmentFile=/etc/ktl-products.env
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target
