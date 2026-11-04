@@ -6,7 +6,9 @@ function result(data: unknown, status: number) {
 }
 
 export async function POST(request: Request) {
-  if (request.headers.get('origin') !== process.env.PRODUCTS_ORIGIN) {
+  const origin = request.headers.get('origin');
+  const allowedOrigins = (process.env.PRODUCTS_ORIGIN ?? '').split(',').map(value => value.trim());
+  if (!origin || !allowedOrigins.includes(origin)) {
     return result({ error: 'ページを開き直して送信してください。' }, 403);
   }
   if (request.headers.get('content-type')?.split(';')[0] !== 'application/json') {
