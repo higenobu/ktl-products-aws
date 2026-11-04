@@ -1,0 +1,22 @@
+# Install on the new EC2 after obtaining the llmjp-sol.com certificate.
+<VirtualHost *:80>
+    ServerName llmjp-sol.com
+    Redirect 302 / https://llmjp-sol.com/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName llmjp-sol.com
+    SSLEngine On
+    SSLCertificateFile /etc/letsencrypt/live/llmjp-sol.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/llmjp-sol.com/privkey.pem
+
+    ProxyRequests Off
+    ProxyPassInherit Off
+    RedirectMatch 302 "^/(products)?$" "/products/"
+    ProxyPass "/products/" "http://PRIVATE_IP:8011/products/" connectiontimeout=5 timeout=30
+    ProxyPassReverse "/products/" "http://PRIVATE_IP:8011/products/"
+
+    <Location "/products/api/applications/">
+        LimitRequestBody 8192
+    </Location>
+</VirtualHost>
