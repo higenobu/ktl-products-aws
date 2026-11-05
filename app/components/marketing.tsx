@@ -4,7 +4,7 @@ import { ArrowUpRight, ArrowRight, Check, GitBranch as Github, Code2, FileCheck2
 import { products, productLabels, purposeLabels, deploymentLabels } from '../../lib/catalog';
 type ProductId=typeof products[number]['id'];
 const Icons={code:Code2,file:FileCheck2,chart:ChartNoAxesCombined,lab:Activity,wave:AudioLines};
-export function Brand(){return <a className="brand" href="/products/" aria-label="KTL AI Products ホーム"><span className="brand-mark"><span/><span/><span/><span/></span><span><b>KTL<span className="brand-dot">.</span></b><small>KYOTO TEXTLAB</small></span></a>}
+export function Brand(){return <a className="brand" href="/products/" aria-label="Twin Sun Inc ホーム"><span className="brand-mark"><span/><span/><span/><span/></span><span><b>TSI<span className="brand-dot">.</span></b><small>Twin Sun Inc</small></span></a>}
 const samples:Record<ProductId,{label:string,rows:[string,string][],foot:string}>={
  api:{label:'API REQUEST',rows:[['POST','/llmjp/generate'],['prompt','日本語の文書を整理してください。'],['Authorization','Bearer YOUR_TOKEN'],['max_tokens','4096']],foot:'既存システムから、認証付きで接続。'},
  confidential:{label:'DOCUMENT REVIEW',rows:[['入力','未公開プロジェクトの企画書'],['分類例','社外秘として要確認'],['根拠例','未公開の企画情報を含む'],['次の操作','根拠と原文を担当者が照合']],foot:'固定サンプルです。実際のAI判定は行いません。'},
